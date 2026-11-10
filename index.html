@@ -733,6 +733,57 @@ $('#cekMatch').onclick=()=>{let b=0;M.forEach((m,i)=>{const e=$('#m'+i),ok=e.val
 const FR=[['🚗🏡','Raka dan Sari pergi ke rumah nenek.'],['🌾🌾','Mereka melihat sawah yang luas.'],['🏞️🚗','Mobil menyeberangi sungai.'],['⛰️☁️','Jalan berkelok naik ke arah gunung berkabut.'],['🌋🛶','Di dekatnya ada danau yang tenang. “Wah, banyak sekali pemandangannya!” kata Sari.']];
 let fi=0;function showF(){$('#sc').textContent=FR[fi][0];$('#st').textContent=`(${fi+1}/${FR.length}) `+FR[fi][1];$('#sprev').disabled=fi===0;$('#snext').disabled=fi===FR.length-1}
 $('#sprev').onclick=()=>{if(fi>0){fi--;showF()}};$('#snext').onclick=()=>{if(fi<FR.length-1){fi++;showF()}};showF();
+// FUNGSI KIRIM REFLEKSI
+
+$('#kirimRefleksi').onclick = async () => {
+
+  const nama = sessionStorage.getItem('namaMurid');
+  const kelas = sessionStorage.getItem('kelasMurid');
+
+  const tahu = $('#r1').value.trim();
+  const perasaan = $('#rasa').value;
+  const inginMencoba = $('#r3').value.trim();
+
+  if (!tahu || !inginMencoba) {
+    $('#statusRefleksi').textContent =
+      'Lengkapi semua isian refleksi terlebih dahulu, ya!';
+    return;
+  }
+
+  const tombol = $('#kirimRefleksi');
+  tombol.disabled = true;
+  tombol.textContent = 'Mengirim...';
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify({
+        bagian: 'R',
+        nama: nama,
+        kelas: kelas,
+        tahu: tahu,
+        perasaan: perasaan,
+        inginMencoba: inginMencoba
+      })
+    });
+
+    $('#statusRefleksi').textContent =
+      'Refleksi sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
+
+    tombol.textContent = 'Refleksi Terkirim';
+
+  } catch (error) {
+    $('#statusRefleksi').textContent =
+      'Pengiriman gagal. Coba periksa koneksi internet.';
+
+    tombol.disabled = false;
+    tombol.textContent = 'Kirim Refleksi';
+  }
+};
 </script>
 </body>
 </html>
