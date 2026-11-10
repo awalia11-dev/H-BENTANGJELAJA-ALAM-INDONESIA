@@ -203,7 +203,17 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <div class="wrap">
 <div class="card"><h3>Kartu bentang alam</h3><div class="lands" id="lands"></div><div id="landInfo" aria-live="polite" style="margin-top:14px;font-weight:700">Ketuk salah satu kartu di atas 👆</div></div>
 <div class="card"><h3>Permainan 1: Cocokkan gambar dan nama</h3><div id="match"></div><p><button class="btn" id="cekMatch">Periksa jawabanku</button> <span id="hasilMatch" aria-live="polite"></span></p></div>
-<div class="card"><h3>Permainan 2 (LKPD): daratan atau perairan?</h3><div id="sort"></div></div>
+<div class="card">
+  <h3>Permainan 2 (LKPD): daratan atau perairan?</h3>
+
+  <div id="sort"></div>
+
+  <button class="btn" id="kirimE" type="button">
+    Kirim Jawaban
+  </button>
+
+  <p id="statusE" aria-live="polite"></p>
+</div>
 <div class="embed" id="game1"><div class="ph"><b>🎮</b>Game dari Wordwall / LearningApps (opsional)<br><span class="note">Ganti blok ini dengan kode sematan (iframe) dari layanannya.</span></div></div>
 <div class="role" style="margin-top:16px"><div class="g"><strong>👩‍🏫 Aktivitas guru</strong>Memandu eksplorasi, membantu siswa yang kesulitan, memberi penguatan.</div><div class="s"><strong>🧒 Aktivitas siswa</strong>Membaca kartu, mencocokkan, dan mengelompokkan bentang alam, lalu menyebut cirinya.</div></div>
 <div class="nextrow" id="nx-menjelajah"></div>
@@ -220,7 +230,15 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <tr><td>Dataran rendah</td><td>Petani padi</td><td><textarea rows="2" aria-label="Alasan dataran rendah"></textarea></td></tr>
 <tr><td>Dataran tinggi</td><td>Petani teh</td><td><textarea rows="2" aria-label="Alasan dataran tinggi"></textarea></td></tr>
 <tr><td>Pantai</td><td>Nelayan</td><td><textarea rows="2" aria-label="Alasan pantai"></textarea></td></tr>
-<tr><td>Danau</td><td>Pembudidaya ikan</td><td><textarea rows="2" aria-label="Alasan danau"></textarea></td></tr></table></div>
+<tr><td>Danau</td><td>Pembudidaya ikan</td><td><textarea rows="2" aria-label="Alasan danau"></textarea></td></tr>
+</table>
+
+<button class="btn" id="kirimT" type="button">
+  Kirim Jawaban
+</button>
+
+<p id="statusT" aria-live="polite"></p>
+</div>
 <div class="card"><h3>Aturan diskusi santun</h3><ul class="tidy"><li>👂 Dengarkan teman yang berbicara.</li><li>✋ Angkat tangan sebelum berbicara.</li><li>💬 Gunakan kata yang baik dan sopan.</li><li>🤝 Hargai pendapat yang berbeda.</li></ul></div>
 <div class="card"><h3>Kata bantu presentasi</h3><p style="margin:0">“Kelompok kami membahas …” · “Cirinya …” · “Profesinya …” · “Alasannya …”</p></div>
 <div class="role" style="margin-top:16px"><div class="g"><strong>👩‍🏫 Aktivitas guru</strong>Mengatur kelompok, memantau Padlet, memberi umpan balik dan menjaga diskusi tetap santun.</div><div class="s"><strong>🧒 Aktivitas siswa</strong>Berdiskusi, menulis di Padlet, mempresentasikan, dan menanggapi kelompok lain.</div></div>
@@ -344,9 +362,151 @@ $('#kirimH').onclick = async () => {
       'Pengiriman gagal. Periksa koneksi internet dan coba lagi.';
   }
 
-  tombol.disabled = false;
+    tombol.disabled = false;
   tombol.textContent = 'Kirim Jawaban';
 };
+
+
+// ===================================
+// FUNGSI KIRIM JAWABAN BAGIAN E
+// ===================================
+
+$('#kirimE').onclick = async () => {
+
+  const nama = sessionStorage.getItem('namaMurid');
+  const kelas = sessionStorage.getItem('kelasMurid');
+
+  const jawabanMencocokkan = {};
+
+  M.forEach((m, i) => {
+    jawabanMencocokkan[m[1]] = $('#m' + i).value;
+  });
+
+  const jawabanMengelompokkan = {};
+
+  S.forEach((s, i) => {
+    jawabanMengelompokkan[s[0]] = sortAnswers[i] || '';
+  });
+
+  if (Object.values(jawabanMencocokkan).some(j => !j)) {
+    $('#statusE').textContent =
+      'Lengkapi semua jawaban mencocokkan terlebih dahulu, ya!';
+    return;
+  }
+
+  if (Object.values(jawabanMengelompokkan).some(j => !j)) {
+    $('#statusE').textContent =
+      'Lengkapi semua jawaban pengelompokan terlebih dahulu, ya!';
+    return;
+  }
+
+  const tombol = $('#kirimE');
+  tombol.disabled = true;
+  tombol.textContent = 'Mengirim...';
+
+  try {
+
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify({
+        bagian: 'E',
+        nama: nama,
+        kelas: kelas,
+        jawabanMencocokkan: jawabanMencocokkan,
+        jawabanMengelompokkan: jawabanMengelompokkan
+      })
+    });
+
+    $('#statusE').textContent =
+      'Permintaan pengiriman jawaban E sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
+
+  } catch (error) {
+
+    $('#statusE').textContent =
+      'Pengiriman gagal. Periksa koneksi internet dan coba lagi.';
+
+  }
+
+  tombol.disabled = false;
+  tombol.textContent = 'Kirim Jawaban';
+
+};
+
+
+// ===================================
+// FUNGSI KIRIM JAWABAN BAGIAN T
+// ===================================
+
+$('#kirimT').onclick = async () => {
+
+  const nama = sessionStorage.getItem('namaMurid');
+  const kelas = sessionStorage.getItem('kelasMurid');
+
+  const alasanDataranRendah =
+    document.querySelector('[aria-label="Alasan dataran rendah"]').value.trim();
+
+  const alasanDataranTinggi =
+    document.querySelector('[aria-label="Alasan dataran tinggi"]').value.trim();
+
+  const alasanPantai =
+    document.querySelector('[aria-label="Alasan pantai"]').value.trim();
+
+  const alasanDanau =
+    document.querySelector('[aria-label="Alasan danau"]').value.trim();
+
+  if (
+    !alasanDataranRendah ||
+    !alasanDataranTinggi ||
+    !alasanPantai ||
+    !alasanDanau
+  ) {
+    $('#statusT').textContent =
+      'Lengkapi semua alasan diskusi terlebih dahulu, ya!';
+    return;
+  }
+
+  const tombol = $('#kirimT');
+  tombol.disabled = true;
+  tombol.textContent = 'Mengirim...';
+
+  try {
+
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify({
+        bagian: 'T',
+        nama: nama,
+        kelas: kelas,
+        alasanDataranRendah: alasanDataranRendah,
+        alasanDataranTinggi: alasanDataranTinggi,
+        alasanPantai: alasanPantai,
+        alasanDanau: alasanDanau
+      })
+    });
+
+    $('#statusT').textContent =
+      'Permintaan pengiriman jawaban T sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
+
+  } catch (error) {
+
+    $('#statusT').textContent =
+      'Pengiriman gagal. Periksa koneksi internet dan coba lagi.';
+
+  }
+
+  tombol.disabled = false;
+  tombol.textContent = 'Kirim Jawaban';
+
+};
+
 
 const P=[
 ['beranda','Beranda','#a9cdf5','#1d3557'],
@@ -402,9 +562,19 @@ document.querySelectorAll('.land').forEach(b=>b.onclick=()=>{
 
 const S=[['Gunung','D'],['Dataran tinggi','D'],['Dataran rendah','D'],['Pantai','D'],['Sungai','P'],['Danau','P']];
 $('#sort').innerHTML=S.map((s,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0"><b>${s[0]}</b><span><button class="opt" style="display:inline-block;width:auto" data-i="${i}" data-v="D">⛰️ Daratan</button> <button class="opt" style="display:inline-block;width:auto" data-i="${i}" data-v="P">💧 Perairan</button></span></div>`).join('');
+const sortAnswers = {};
+
 document.querySelectorAll('#sort .opt').forEach(b=>b.onclick=()=>{
-  const ok=b.dataset.v===S[b.dataset.i][1];
-  b.classList.remove('right','wrong');b.classList.add(ok?'right':'wrong');if(ok)burst(b);
+  const index = b.dataset.i;
+  const ok = b.dataset.v===S[index][1];
+
+  sortAnswers[index] = b.dataset.v;
+
+  document.querySelectorAll(`#sort .opt[data-i="${index}"]`)
+    .forEach(x=>x.classList.remove('right','wrong'));
+
+  b.classList.add(ok?'right':'wrong');
+  if(ok)burst(b);
 });
 
 const Q=[['Bagian bumi yang menjulang tinggi dan ada yang punya kawah disebut …',['Danau','Gunung','Sungai'],1],['Air tawar yang mengalir dari tempat tinggi ke tempat rendah disebut …',['Sungai','Pantai','Danau'],0],['Dataran yang letaknya tinggi dan udaranya sejuk disebut …',['Dataran rendah','Dataran tinggi','Pantai'],1],['Nelayan mencari ikan di …',['Gunung','Dataran tinggi','Laut'],2],['Cara menjaga sungai tetap bersih adalah …',['Membuang sampah ke sungai','Membuang sampah pada tempatnya','Membiarkan sampah menumpuk'],1]];
