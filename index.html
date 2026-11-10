@@ -183,7 +183,15 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <div class="grid"><div class="card"><div style="font-size:2.4rem">🌾</div><p>Petani menanam padi di dataran rendah.</p></div><div class="card"><div style="font-size:2.4rem">🍵</div><p>Petani teh memilih dataran tinggi yang sejuk.</p></div><div class="card"><div style="font-size:2.4rem">🎣</div><p>Nelayan mencari ikan di laut.</p></div></div>
 <div class="card"><h3>Budaya dan kearifan lokal di sekitarku</h3><p>[Isi dengan contoh dari daerah sekolah mitramu, misalnya cara bertani, tradisi, atau cara warga menjaga sungai atau pantai.]</p><p>Kecakapan hidup: menjaga kebersihan sungai dan pantai, tidak membuang sampah sembarangan, hemat air.</p></div>
 <div class="card"><h3>Pertanyaan “Hubungkan”</h3><ul class="tidy"><li>Bentang alam apa yang ada di dekat rumahmu?</li><li>Pernahkah kamu berlibur ke pantai atau gunung? Apa yang kamu lihat?</li><li>Apa pekerjaan orang di sekitar bentang alam itu?</li></ul>
-<label for="tanya"><b>Pertanyaanku tentang bentang alam:</b></label><textarea id="tanya" rows="2" placeholder="Contoh: Mengapa udara di gunung dingin?"></textarea></div>
+<label for="tanya"><b>Pertanyaanku tentang bentang alam:</b></label>
+<textarea id="tanya" rows="2" placeholder="Contoh: Mengapa udara di gunung dingin?"></textarea>
+
+<button class="btn" id="kirimH" type="button">
+  Kirim Jawaban
+</button>
+
+<p id="statusH" aria-live="polite"></p>
+</div>
 <div class="role" style="margin-top:16px"><div class="g"><strong>👩‍🏫 Aktivitas guru</strong>Membimbing siswa mengaitkan materi dengan pengalaman dan lingkungan, membantu merumuskan pertanyaan.</div><div class="s"><strong>🧒 Aktivitas siswa</strong>Bercerita tentang lingkungan dan liburannya, lalu menulis satu pertanyaan sendiri.</div></div>
 <div class="nextrow" id="nx-hubungkan"></div>
 </div>
@@ -293,6 +301,51 @@ $('#gantiIdentitas').onclick = () => {
   $('#kelasMurid').value = '';
 
   identitas.style.display = 'flex';
+};
+
+// ALAMAT GOOGLE SPREADSHEET
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvsZ2yo5Q7wXVGLpNyZ90lgCJ66ZkiF87Z6rdmgRZxzw9VxsHc64l50dgm0o0zxmfp/exec";
+
+// FUNGSI KIRIM JAWABAN BAGIAN H
+$('#kirimH').onclick = async () => {
+  const nama = sessionStorage.getItem('namaMurid');
+  const kelas = sessionStorage.getItem('kelasMurid');
+  const jawaban = $('#tanya').value.trim();
+
+  if (!jawaban) {
+    $('#statusH').textContent = 'Isi pertanyaanmu terlebih dahulu, ya!';
+    return;
+  }
+
+  const tombol = $('#kirimH');
+  tombol.disabled = true;
+  tombol.textContent = 'Mengirim...';
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify({
+        bagian: 'H',
+        nama: nama,
+        kelas: kelas,
+        jawabanPertanyaan: jawaban
+      })
+    });
+
+    $('#statusH').textContent =
+      'Permintaan pengiriman sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
+
+  } catch (error) {
+    $('#statusH').textContent =
+      'Pengiriman gagal. Periksa koneksi internet dan coba lagi.';
+  }
+
+  tombol.disabled = false;
+  tombol.textContent = 'Kirim Jawaban';
 };
 
 const P=[
