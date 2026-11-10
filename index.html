@@ -100,6 +100,28 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 </style>
 </head>
 <body>
+
+<div id="identitas" style="position:fixed;inset:0;z-index:1000;background:#fffaf5;display:flex;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;border:3px solid #f1e4dc;border-radius:24px;padding:25px;width:100%;max-width:420px;text-align:center">
+    <h2 style="color:#2d3b4a">🌿 Selamat Datang, Penjelajah Cilik!</h2>
+    <p>Isi identitasmu sebelum memulai petualangan.</p>
+
+    <label for="namaMurid"><b>Nama lengkap</b></label>
+    <input id="namaMurid" type="text" placeholder="Masukkan nama lengkap"
+      style="width:100%;padding:12px;margin:8px 0 15px;border:2px solid #f1e4dc;border-radius:12px;font:inherit">
+
+    <label for="kelasMurid"><b>Kelas</b></label>
+    <input id="kelasMurid" type="text" placeholder="Contoh: III A"
+      style="width:100%;padding:12px;margin:8px 0 15px;border:2px solid #f1e4dc;border-radius:12px;font:inherit">
+
+    <button class="btn" id="mulaiBelajar" style="width:100%;background:#a9cdf5;color:#1d3557">
+      Mulai Menjelajah →
+    </button>
+
+    <p id="pesanIdentitas" style="color:#d9534f;font-weight:bold"></p>
+  </div>
+</div>
+
 <header class="top">
 <img class="lg" src="logo-prodi.png" alt="Logo prodi PGSD UPI Kampus Cibiru" onerror="this.outerHTML='<div class=logo>logo prodi</div>'">
 <nav class="nav" id="nav" aria-label="Menu halaman"></nav>
@@ -239,6 +261,25 @@ Pengembang: [nama anggota kelompok]<br>Sumber gambar: [lengkapi]
 
 <script>
 const $=s=>document.querySelector(s);
+
+// TEMPEL KODE LANGKAH 2 DI SINI
+const identitas = document.getElementById('identitas');
+
+$('#mulaiBelajar').onclick = () => {
+  const nama = $('#namaMurid').value.trim();
+  const kelas = $('#kelasMurid').value.trim();
+
+  if (!nama || !kelas) {
+    $('#pesanIdentitas').textContent = 'Nama dan kelas harus diisi dahulu, ya!';
+    return;
+  }
+
+  sessionStorage.setItem('namaMurid', nama);
+  sessionStorage.setItem('kelasMurid', kelas);
+
+  identitas.style.display = 'none';
+};
+
 const P=[
 ['beranda','Beranda','#a9cdf5','#1d3557'],
 ['ayo-mulai','D · Ayo Mulai','#a9cdf5','#1d3557'],
