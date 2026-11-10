@@ -126,6 +126,11 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <img class="lg" src="logo-prodi.png" alt="Logo prodi PGSD UPI Kampus Cibiru" onerror="this.outerHTML='<div class=logo>logo prodi</div>'">
 <nav class="nav" id="nav" aria-label="Menu halaman"></nav>
 <button class="theme" id="theme" aria-label="Ganti mode terang atau gelap">🌙</button>
+
+<button id="gantiIdentitas" class="theme" type="button">
+  Ganti Identitas
+</button>
+
 </header>
 
 <main>
@@ -256,7 +261,7 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <b>PGSDUPICIBIRU2026 #dHeTik</b><br>
 Program Studi PGSD, Universitas Pendidikan Indonesia Kampus Cibiru<br>
 Desain Sistem Pembelajaran Digital · Dosen: Dr. Dede Trie Kurniawan, S.Si., M.Pd.<br>
-Pengembang: [nama anggota kelompok]<br>Sumber gambar: [lengkapi]
+Pengembang: Awalia Safitri; Gayasal Agisni Putri; Risa Aulia Hermyanti; dan Riska Setiawati.
 </div></footer>
 
 <script>
@@ -274,10 +279,20 @@ $('#mulaiBelajar').onclick = () => {
     return;
   }
 
-  sessionStorage.setItem('namaMurid', nama);
+    sessionStorage.setItem('namaMurid', nama);
   sessionStorage.setItem('kelasMurid', kelas);
 
   identitas.style.display = 'none';
+};
+
+$('#gantiIdentitas').onclick = () => {
+  sessionStorage.removeItem('namaMurid');
+  sessionStorage.removeItem('kelasMurid');
+
+  $('#namaMurid').value = '';
+  $('#kelasMurid').value = '';
+
+  identitas.style.display = 'flex';
 };
 
 const P=[
