@@ -318,10 +318,24 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <tr><td>Penjelasan lisan</td><td>Jelas: nama, ciri, profesi, pesan</td><td>Belum mampu menjelaskan</td></tr>
 <tr><td>Kerapian dan kreativitas</td><td>Rapi dan kreatif</td><td>Belum selesai</td></tr></table></div>
 <div class="card"><h3>Refleksiku</h3>
-<label for="r1"><b>Aku tahu …</b></label><textarea id="r1" rows="2"></textarea>
-<label for="rasa"><b>Aku merasa …</b></label><select id="rasa"><option>😄 Senang</option><option>🙂 Cukup paham</option><option>🤔 Masih bingung</option></select>
-<label for="r3"><b>Aku ingin mencoba …</b></label><textarea id="r3" rows="2"></textarea>
-<p class="note">Isian ini tidak tersimpan. Untuk mengumpulkan refleksi, sematkan Google Forms di sini.</p></div>
+<label for="r1"><b>Aku tahu …</b></label>
+<textarea id="r1" rows="2"></textarea>
+
+<label for="rasa"><b>Aku merasa …</b></label>
+<select id="rasa">
+  <option>😄 Senang</option>
+  <option>🙂 Cukup paham</option>
+  <option>🤔 Masih bingung</option>
+</select>
+
+<label for="r3"><b>Aku ingin mencoba …</b></label>
+<textarea id="r3" rows="2"></textarea>
+
+<button class="btn" id="kirimRefleksi" type="button">
+  Kirim Refleksi
+</button>
+<p id="statusRefleksi" aria-live="polite"></p>
+</div>
 <div class="role" style="margin-top:16px"><div class="g"><strong>👩‍🏫 Aktivitas guru</strong>Membimbing pembuatan karya, menilai dengan rubrik, memandu refleksi.</div><div class="s"><strong>🧒 Aktivitas siswa</strong>Membuat dan menjelaskan karya, mengunggahnya, lalu mengisi refleksi.</div></div>
 <div class="nextrow" id="nx-karyaku"></div>
 </div>
