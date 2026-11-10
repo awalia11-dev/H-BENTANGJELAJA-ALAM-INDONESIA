@@ -100,37 +100,10 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 </style>
 </head>
 <body>
-
-<div id="identitas" style="position:fixed;inset:0;z-index:1000;background:#fffaf5;display:flex;align-items:center;justify-content:center;padding:20px">
-  <div style="background:white;border:3px solid #f1e4dc;border-radius:24px;padding:25px;width:100%;max-width:420px;text-align:center">
-    <h2 style="color:#2d3b4a">🌿 Selamat Datang, Penjelajah Cilik!</h2>
-    <p>Isi identitasmu sebelum memulai petualangan.</p>
-
-    <label for="namaMurid"><b>Nama lengkap</b></label>
-    <input id="namaMurid" type="text" placeholder="Masukkan nama lengkap"
-      style="width:100%;padding:12px;margin:8px 0 15px;border:2px solid #f1e4dc;border-radius:12px;font:inherit">
-
-    <label for="kelasMurid"><b>Kelas</b></label>
-    <input id="kelasMurid" type="text" placeholder="Contoh: III A"
-      style="width:100%;padding:12px;margin:8px 0 15px;border:2px solid #f1e4dc;border-radius:12px;font:inherit">
-
-    <button class="btn" id="mulaiBelajar" style="width:100%;background:#a9cdf5;color:#1d3557">
-      Mulai Menjelajah →
-    </button>
-
-    <p id="pesanIdentitas" style="color:#d9534f;font-weight:bold"></p>
-  </div>
-</div>
-
 <header class="top">
 <img class="lg" src="logo-prodi.png" alt="Logo prodi PGSD UPI Kampus Cibiru" onerror="this.outerHTML='<div class=logo>logo prodi</div>'">
 <nav class="nav" id="nav" aria-label="Menu halaman"></nav>
 <button class="theme" id="theme" aria-label="Ganti mode terang atau gelap">🌙</button>
-
-<button id="gantiIdentitas" class="theme" type="button">
-  Ganti Identitas
-</button>
-
 </header>
 
 <main>
@@ -183,15 +156,7 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <div class="grid"><div class="card"><div style="font-size:2.4rem">🌾</div><p>Petani menanam padi di dataran rendah.</p></div><div class="card"><div style="font-size:2.4rem">🍵</div><p>Petani teh memilih dataran tinggi yang sejuk.</p></div><div class="card"><div style="font-size:2.4rem">🎣</div><p>Nelayan mencari ikan di laut.</p></div></div>
 <div class="card"><h3>Budaya dan kearifan lokal di sekitarku</h3><p>[Isi dengan contoh dari daerah sekolah mitramu, misalnya cara bertani, tradisi, atau cara warga menjaga sungai atau pantai.]</p><p>Kecakapan hidup: menjaga kebersihan sungai dan pantai, tidak membuang sampah sembarangan, hemat air.</p></div>
 <div class="card"><h3>Pertanyaan “Hubungkan”</h3><ul class="tidy"><li>Bentang alam apa yang ada di dekat rumahmu?</li><li>Pernahkah kamu berlibur ke pantai atau gunung? Apa yang kamu lihat?</li><li>Apa pekerjaan orang di sekitar bentang alam itu?</li></ul>
-<label for="tanya"><b>Pertanyaanku tentang bentang alam:</b></label>
-<textarea id="tanya" rows="2" placeholder="Contoh: Mengapa udara di gunung dingin?"></textarea>
-
-<button class="btn" id="kirimH" type="button">
-  Kirim Jawaban
-</button>
-
-<p id="statusH" aria-live="polite"></p>
-</div>
+<label for="tanya"><b>Pertanyaanku tentang bentang alam:</b></label><textarea id="tanya" rows="2" placeholder="Contoh: Mengapa udara di gunung dingin?"></textarea></div>
 <div class="role" style="margin-top:16px"><div class="g"><strong>👩‍🏫 Aktivitas guru</strong>Membimbing siswa mengaitkan materi dengan pengalaman dan lingkungan, membantu merumuskan pertanyaan.</div><div class="s"><strong>🧒 Aktivitas siswa</strong>Bercerita tentang lingkungan dan liburannya, lalu menulis satu pertanyaan sendiri.</div></div>
 <div class="nextrow" id="nx-hubungkan"></div>
 </div>
@@ -203,17 +168,7 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <div class="wrap">
 <div class="card"><h3>Kartu bentang alam</h3><div class="lands" id="lands"></div><div id="landInfo" aria-live="polite" style="margin-top:14px;font-weight:700">Ketuk salah satu kartu di atas 👆</div></div>
 <div class="card"><h3>Permainan 1: Cocokkan gambar dan nama</h3><div id="match"></div><p><button class="btn" id="cekMatch">Periksa jawabanku</button> <span id="hasilMatch" aria-live="polite"></span></p></div>
-<div class="card">
-  <h3>Permainan 2: Daratan atau Perairan?</h3>
-
-  <div id="sort"></div>
-
-  <button class="btn" id="kirimE" type="button">
-    Kirim Jawaban
-  </button>
-
-  <p id="statusE" aria-live="polite"></p>
-</div>
+<div class="card"><h3>Permainan 2 (LKPD): daratan atau perairan?</h3><div id="sort"></div></div>
 <div class="embed" id="game1"><div class="ph"><b>🎮</b>Game dari Wordwall / LearningApps (opsional)<br><span class="note">Ganti blok ini dengan kode sematan (iframe) dari layanannya.</span></div></div>
 <div class="role" style="margin-top:16px"><div class="g"><strong>👩‍🏫 Aktivitas guru</strong>Memandu eksplorasi, membantu siswa yang kesulitan, memberi penguatan.</div><div class="s"><strong>🧒 Aktivitas siswa</strong>Membaca kartu, mencocokkan, dan mengelompokkan bentang alam, lalu menyebut cirinya.</div></div>
 <div class="nextrow" id="nx-menjelajah"></div>
@@ -224,31 +179,14 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <section class="pg" id="pg-diskusi" style="--c:#c5e8a5;--on:#2c4a12" hidden>
 <div class="band"><div class="wrap"><div class="tag">T</div><h2>Ruang Diskusi</h2><p>Ceritakan temuanmu dan dengarkan temanmu!</p></div></div>
 <div class="wrap">
-<div class="card" id="padlet"><h3>📌 Papan Diskusi Padlet</h3><p>Gunakan tautan berikut untuk menuliskan hasil diskusi kelompok tentang ciri bentang alam dan profesi masyarakatnya.</p><p><a class="btn" href="https://padlet.com/awalia11_1/papan-diskusi-s025bqovdqgdumrnv3zp" target="_blank" rel="noopener noreferrer">Buka Padlet →</a></p></div>
+<div class="card" id="padlet"><h3>📌 Papan Diskusi Padlet</h3><p>Gunakan tautan berikut untuk menuliskan hasil diskusi kelompok tentang ciri bentang alam dan profesi masyarakatnya.</p><p><a class="btn" href="https://padlet.com/awalia11_1/jelajah-bentang-alam-indonesia-s025bqovdqgdumrnv3zp" target="_blank" rel="noopener noreferrer">Buka Padlet →</a></p></div>
 <div class="card"><h3>Tugas kelompok</h3><p>Setiap kelompok mendapat satu bentang alam. Diskusikan ciri dan profesi masyarakatnya, lalu tulis hasilnya di Padlet.</p>
 <table><tr><th>Bentang alam</th><th>Profesi masyarakat</th><th>Mengapa cocok di sana?</th></tr>
 <tr><td>Dataran rendah</td><td>Petani padi</td><td><textarea rows="2" aria-label="Alasan dataran rendah"></textarea></td></tr>
 <tr><td>Dataran tinggi</td><td>Petani teh</td><td><textarea rows="2" aria-label="Alasan dataran tinggi"></textarea></td></tr>
 <tr><td>Pantai</td><td>Nelayan</td><td><textarea rows="2" aria-label="Alasan pantai"></textarea></td></tr>
-<tr><td>Danau</td><td>Pembudidaya ikan</td><td><textarea rows="2" aria-label="Alasan danau"></textarea></td></tr>
-</table>
-
-<button class="btn" id="kirimT" type="button">
-  Kirim Jawaban
-</button>
-
-<p id="statusT" aria-live="polite"></p>
-</div>
-<div class="card">
-  <h3>💬 Panduan Mengisi Ruang Diskusi</h3>
-  <ul class="tidy">
-    <li>🧠 Bacalah setiap pertanyaan dengan cermat.</li>
-    <li>✍️ Tuliskan jawaban sesuai pemahamanmu.</li>
-    <li>💡 Sertakan alasan yang jelas untuk mendukung jawabanmu.</li>
-    <li>🤝 Hargai perbedaan pendapat saat membaca jawaban teman.</li>
-    <li>🌱 Gunakan bahasa yang baik dan sopan.</li>
-  </ul>
-</div>
+<tr><td>Danau</td><td>Pembudidaya ikan</td><td><textarea rows="2" aria-label="Alasan danau"></textarea></td></tr></table></div>
+<div class="card"><h3>Aturan diskusi santun</h3><ul class="tidy"><li>👂 Dengarkan teman yang berbicara.</li><li>✋ Angkat tangan sebelum berbicara.</li><li>💬 Gunakan kata yang baik dan sopan.</li><li>🤝 Hargai pendapat yang berbeda.</li></ul></div>
 <div class="card"><h3>Kata bantu presentasi</h3><p style="margin:0">“Kelompok kami membahas …” · “Cirinya …” · “Profesinya …” · “Alasannya …”</p></div>
 <div class="role" style="margin-top:16px"><div class="g"><strong>👩‍🏫 Aktivitas guru</strong>Mengatur kelompok, memantau Padlet, memberi umpan balik dan menjaga diskusi tetap santun.</div><div class="s"><strong>🧒 Aktivitas siswa</strong>Berdiskusi, menulis di Padlet, mempresentasikan, dan menanggapi kelompok lain.</div></div>
 <div class="nextrow" id="nx-diskusi"></div>
@@ -261,26 +199,9 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <div class="wrap">
 <div class="card"><h3>Peta konsep</h3><div style="text-align:center;font-weight:800"><div style="display:inline-block;background:#ffb8b5;color:#5a1a1a;border-radius:99px;padding:8px 20px">Bentang Alam Indonesia</div>
 <div class="grid" style="margin-top:12px"><div style="background:var(--soft);border-radius:16px;padding:10px">⛰️ Daratan<br><span class="note">gunung · dataran tinggi · dataran rendah · pantai<br>profesi: petani, nelayan, pemandu wisata</span></div><div style="background:var(--soft);border-radius:16px;padding:10px">💧 Perairan<br><span class="note">sungai · danau<br>profesi: pengemudi perahu, pembudidaya ikan</span></div></div></div></div>
-
-<!-- TAMBAHAN MATERI CANVA -->
-<div class="card" style="text-align:center">
-  <h3>📖 Materi Ikat Ilmuku</h3>
-  <p>Pelajari kembali materi bentang alam Indonesia melalui media interaktif berikut!</p>
-  <a class="btn" href="https://canva.link/xppymwms1cor0ch" target="_blank" rel="noopener">
-    Buka Materi Canva ↗
-  </a>
-</div>
-
 <div class="card"><h3>Infografis bentang alam</h3><div class="grid"><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🌋</div><b>Gunung</b><br><span class="note">Menjulang tinggi<br>Profesi: Petani sayur</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🍵</div><b>Dataran tinggi</b><br><span class="note">Datar dan sejuk<br>Profesi: Petani teh</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🌾</div><b>Dataran rendah</b><br><span class="note">Datar dan rendah<br>Profesi: Petani padi</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🏖️</div><b>Pantai</b><br><span class="note">Daratan di tepi laut, berpasir<br>Profesi: Petani garam</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🏞️</div><b>Sungai</b><br><span class="note">Air tawar mengalir<br>Profesi: Pengemudi perahu</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🛶</div><b>Danau</b><br><span class="note">Air tawar menggenang<br>Profesi: Pembudidaya ikan</span></div></div></div>
 <div class="card"><h3>Biar tidak keliru</h3><ul class="tidy"><li>Sungai mengalir, sedangkan danau menggenang.</li><li>Dataran tinggi tidak sama dengan gunung.</li><li>Laut airnya asin, sungai dan danau airnya tawar.</li></ul></div>
-<div class="card">
-  <h3>🧠 Cek Pemahaman</h3>
-  <p>Jawablah pertanyaan berikut untuk mengetahui pemahamanmu tentang bentang alam Indonesia.</p>
-  <div id="quiz"></div>
-  <p id="skor" style="font-weight:800;margin:6px 0 0" aria-live="polite"></p>
-  <button class="btn" id="kirimI" type="button">Kirim Hasil Kuis</button>
-  <p id="statusI" aria-live="polite"></p>
-</div>
+<div class="card"><h3>Kuis konsep</h3><div id="quiz"></div><p id="skor" style="font-weight:800;margin:6px 0 0" aria-live="polite"></p></div>
 <div class="role" style="margin-top:16px"><div class="g"><strong>👩‍🏫 Aktivitas guru</strong>Memandu penyimpulan bersama, meluruskan salah paham, membagikan kuis.</div><div class="s"><strong>🧒 Aktivitas siswa</strong>Menyimpulkan bersama dan mengerjakan kuis.</div></div>
 <div class="nextrow" id="nx-ikat"></div>
 </div>
@@ -291,24 +212,7 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <div class="band"><div class="wrap"><div class="tag">K</div><h2>Karyaku</h2><p>Waktunya berkarya! Tunjukkan hasil jelajahmu.</p></div></div>
 <div class="wrap">
 <div class="card"><h3>Tantangan karya</h3><p style="margin:0">Pilih satu bentang alam, lalu buat <b>gambar</b> atau <b>miniatur</b> sederhana. Tunjukkan <b>profesi masyarakatnya</b> dan tulis <b>satu pesan agar bentang alam tetap terjaga</b>. Setelah selesai, ceritakan karyamu.</p></div>
-<div class="card" id="unggah">
-  <h3>🎨 Papan Karyaku</h3>
-
-  <p>
-    Setelah selesai membuat gambar atau miniatur bentang alam,
-    unggah hasil karyamu melalui papan berikut.
-  </p>
-
-  <p>
-    <a
-      class="btn"
-      href="https://padlet.com/wlsftr/karyaku-s025c4goa8obrubyubp9"
-      target="_blank"
-      rel="noopener noreferrer">
-      Unggah Karyaku →
-    </a>
-  </p>
-</div>
+<div class="embed" id="unggah"><div class="ph"><b>📤</b>Tempat unggah karya (Google Forms atau Padlet)<br><span class="note">Ganti blok ini dengan kode sematan (iframe) dari layanannya.</span></div></div>
 <div class="card"><h3>Rubrik karya</h3><table><tr><th>Aspek</th><th>⭐⭐⭐ Sangat baik</th><th>⭐ Perlu bimbingan</th></tr>
 <tr><td>Ketepatan bentang alam</td><td>Ciri tepat dan lengkap</td><td>Belum menunjukkan ciri</td></tr>
 <tr><td>Profesi masyarakat</td><td>Sesuai dan dijelaskan</td><td>Belum ada profesi</td></tr>
@@ -316,24 +220,10 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <tr><td>Penjelasan lisan</td><td>Jelas: nama, ciri, profesi, pesan</td><td>Belum mampu menjelaskan</td></tr>
 <tr><td>Kerapian dan kreativitas</td><td>Rapi dan kreatif</td><td>Belum selesai</td></tr></table></div>
 <div class="card"><h3>Refleksiku</h3>
-<label for="r1"><b>Aku tahu …</b></label>
-<textarea id="r1" rows="2"></textarea>
-
-<label for="rasa"><b>Aku merasa …</b></label>
-<select id="rasa">
-  <option>😄 Senang</option>
-  <option>🙂 Cukup paham</option>
-  <option>🤔 Masih bingung</option>
-</select>
-
-<label for="r3"><b>Aku ingin mencoba …</b></label>
-<textarea id="r3" rows="2"></textarea>
-
-<button class="btn" id="kirimRefleksi" type="button">
-  Kirim Refleksi
-</button>
-<p id="statusRefleksi" aria-live="polite"></p>
-</div>
+<label for="r1"><b>Aku tahu …</b></label><textarea id="r1" rows="2"></textarea>
+<label for="rasa"><b>Aku merasa …</b></label><select id="rasa"><option>😄 Senang</option><option>🙂 Cukup paham</option><option>🤔 Masih bingung</option></select>
+<label for="r3"><b>Aku ingin mencoba …</b></label><textarea id="r3" rows="2"></textarea>
+<p class="note">Isian ini tidak tersimpan. Untuk mengumpulkan refleksi, sematkan Google Forms di sini.</p></div>
 <div class="role" style="margin-top:16px"><div class="g"><strong>👩‍🏫 Aktivitas guru</strong>Membimbing pembuatan karya, menilai dengan rubrik, memandu refleksi.</div><div class="s"><strong>🧒 Aktivitas siswa</strong>Membuat dan menjelaskan karya, mengunggahnya, lalu mengisi refleksi.</div></div>
 <div class="nextrow" id="nx-karyaku"></div>
 </div>
@@ -344,227 +234,11 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <b>PGSDUPICIBIRU2026 #dHeTik</b><br>
 Program Studi PGSD, Universitas Pendidikan Indonesia Kampus Cibiru<br>
 Desain Sistem Pembelajaran Digital · Dosen: Dr. Dede Trie Kurniawan, S.Si., M.Pd.<br>
-Pengembang: Awalia Safitri; Gayasal Agisni Putri; Risa Aulia Hermyanti; dan Riska Setiawati.
+Pengembang: [nama anggota kelompok]<br>Sumber gambar: [lengkapi]
 </div></footer>
 
 <script>
 const $=s=>document.querySelector(s);
-
-// TEMPEL KODE LANGKAH 2 DI SINI
-const identitas = document.getElementById('identitas');
-
-$('#mulaiBelajar').onclick = () => {
-  const nama = $('#namaMurid').value.trim();
-  const kelas = $('#kelasMurid').value.trim();
-
-  if (!nama || !kelas) {
-    $('#pesanIdentitas').textContent = 'Nama dan kelas harus diisi dahulu, ya!';
-    return;
-  }
-
-    sessionStorage.setItem('namaMurid', nama);
-  sessionStorage.setItem('kelasMurid', kelas);
-
-  identitas.style.display = 'none';
-};
-
-$('#gantiIdentitas').onclick = () => {
-  sessionStorage.removeItem('namaMurid');
-  sessionStorage.removeItem('kelasMurid');
-
-  $('#namaMurid').value = '';
-  $('#kelasMurid').value = '';
-
-  identitas.style.display = 'flex';
-};
-
-// ALAMAT GOOGLE SPREADSHEET
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvsZ2yo5Q7wXVGLpNyZ90lgCJ66ZkiF87Z6rdmgRZxzw9VxsHc64l50dgm0o0zxmfp/exec";
-
-// FUNGSI KIRIM JAWABAN BAGIAN H
-$('#kirimH').onclick = async () => {
-  const nama = sessionStorage.getItem('namaMurid');
-  const kelas = sessionStorage.getItem('kelasMurid');
-  const jawaban = $('#tanya').value.trim();
-
-  if (!jawaban) {
-    $('#statusH').textContent = 'Isi pertanyaanmu terlebih dahulu, ya!';
-    return;
-  }
-
-  const tombol = $('#kirimH');
-  tombol.disabled = true;
-  tombol.textContent = 'Mengirim...';
-
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify({
-        bagian: 'H',
-        nama: nama,
-        kelas: kelas,
-        jawabanPertanyaan: jawaban
-      })
-    });
-
-    $('#statusH').textContent =
-      'Permintaan pengiriman sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
-
-  } catch (error) {
-    $('#statusH').textContent =
-      'Pengiriman gagal. Periksa koneksi internet dan coba lagi.';
-  }
-
-    tombol.disabled = false;
-  tombol.textContent = 'Kirim Jawaban';
-};
-
-
-// ===================================
-// FUNGSI KIRIM JAWABAN BAGIAN E
-// ===================================
-
-$('#kirimE').onclick = async () => {
-
-  const nama = sessionStorage.getItem('namaMurid');
-  const kelas = sessionStorage.getItem('kelasMurid');
-
-  const jawabanMencocokkan = {};
-
-  M.forEach((m, i) => {
-    jawabanMencocokkan[m[1]] = $('#m' + i).value;
-  });
-
-  const jawabanMengelompokkan = {};
-
-  S.forEach((s, i) => {
-    jawabanMengelompokkan[s[0]] = sortAnswers[i] || '';
-  });
-
-  if (Object.values(jawabanMencocokkan).some(j => !j)) {
-    $('#statusE').textContent =
-      'Lengkapi semua jawaban mencocokkan terlebih dahulu, ya!';
-    return;
-  }
-
-  if (Object.values(jawabanMengelompokkan).some(j => !j)) {
-    $('#statusE').textContent =
-      'Lengkapi semua jawaban pengelompokan terlebih dahulu, ya!';
-    return;
-  }
-
-  const tombol = $('#kirimE');
-  tombol.disabled = true;
-  tombol.textContent = 'Mengirim...';
-
-  try {
-
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify({
-        bagian: 'E',
-        nama: nama,
-        kelas: kelas,
-        jawabanMencocokkan: jawabanMencocokkan,
-        jawabanMengelompokkan: jawabanMengelompokkan
-      })
-    });
-
-    $('#statusE').textContent =
-      'Permintaan pengiriman jawaban E sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
-
-  } catch (error) {
-
-    $('#statusE').textContent =
-      'Pengiriman gagal. Periksa koneksi internet dan coba lagi.';
-
-  }
-
-  tombol.disabled = false;
-  tombol.textContent = 'Kirim Jawaban';
-
-};
-
-
-// ===================================
-// FUNGSI KIRIM JAWABAN BAGIAN T
-// ===================================
-
-$('#kirimT').onclick = async () => {
-
-  const nama = sessionStorage.getItem('namaMurid');
-  const kelas = sessionStorage.getItem('kelasMurid');
-
-  const alasanDataranRendah =
-    document.querySelector('[aria-label="Alasan dataran rendah"]').value.trim();
-
-  const alasanDataranTinggi =
-    document.querySelector('[aria-label="Alasan dataran tinggi"]').value.trim();
-
-  const alasanPantai =
-    document.querySelector('[aria-label="Alasan pantai"]').value.trim();
-
-  const alasanDanau =
-    document.querySelector('[aria-label="Alasan danau"]').value.trim();
-
-  if (
-    !alasanDataranRendah ||
-    !alasanDataranTinggi ||
-    !alasanPantai ||
-    !alasanDanau
-  ) {
-    $('#statusT').textContent =
-      'Lengkapi semua alasan diskusi terlebih dahulu, ya!';
-    return;
-  }
-
-  const tombol = $('#kirimT');
-  tombol.disabled = true;
-  tombol.textContent = 'Mengirim...';
-
-  try {
-
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify({
-        bagian: 'T',
-        nama: nama,
-        kelas: kelas,
-        alasanDataranRendah: alasanDataranRendah,
-        alasanDataranTinggi: alasanDataranTinggi,
-        alasanPantai: alasanPantai,
-        alasanDanau: alasanDanau
-      })
-    });
-
-    $('#statusT').textContent =
-      'Permintaan pengiriman jawaban T sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
-
-  } catch (error) {
-
-    $('#statusT').textContent =
-      'Pengiriman gagal. Periksa koneksi internet dan coba lagi.';
-
-  }
-
-  tombol.disabled = false;
-  tombol.textContent = 'Kirim Jawaban';
-
-};
-
-
 const P=[
 ['beranda','Beranda','#a9cdf5','#1d3557'],
 ['ayo-mulai','D · Ayo Mulai','#a9cdf5','#1d3557'],
@@ -619,111 +293,23 @@ document.querySelectorAll('.land').forEach(b=>b.onclick=()=>{
 
 const S=[['Gunung','D'],['Dataran tinggi','D'],['Dataran rendah','D'],['Pantai','D'],['Sungai','P'],['Danau','P']];
 $('#sort').innerHTML=S.map((s,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0"><b>${s[0]}</b><span><button class="opt" style="display:inline-block;width:auto" data-i="${i}" data-v="D">⛰️ Daratan</button> <button class="opt" style="display:inline-block;width:auto" data-i="${i}" data-v="P">💧 Perairan</button></span></div>`).join('');
-const sortAnswers = {};
-
 document.querySelectorAll('#sort .opt').forEach(b=>b.onclick=()=>{
-  const index = b.dataset.i;
-  const ok = b.dataset.v===S[index][1];
-
-  sortAnswers[index] = b.dataset.v;
-
-  document.querySelectorAll(`#sort .opt[data-i="${index}"]`)
-    .forEach(x=>x.classList.remove('right','wrong'));
-
-  b.classList.add(ok?'right':'wrong');
-  if(ok)burst(b);
+  const ok=b.dataset.v===S[b.dataset.i][1];
+  b.classList.remove('right','wrong');b.classList.add(ok?'right':'wrong');if(ok)burst(b);
 });
 
 const Q=[['Bagian bumi yang menjulang tinggi dan ada yang punya kawah disebut …',['Danau','Gunung','Sungai'],1],['Air tawar yang mengalir dari tempat tinggi ke tempat rendah disebut …',['Sungai','Pantai','Danau'],0],['Dataran yang letaknya tinggi dan udaranya sejuk disebut …',['Dataran rendah','Dataran tinggi','Pantai'],1],['Nelayan mencari ikan di …',['Gunung','Dataran tinggi','Laut'],2],['Cara menjaga sungai tetap bersih adalah …',['Membuang sampah ke sungai','Membuang sampah pada tempatnya','Membiarkan sampah menumpuk'],1]];
-let sk = 0;
-let jw = 0;
-let quizAnswers = [];
-
-$('#quiz').innerHTML = Q.map((q,i) =>
-  `<p style="margin:10px 0 2px"><b>${i+1}. ${q[0]}</b></p>` +
-  q[1].map((o,j) =>
-    `<button class="opt" data-q="${i}" data-j="${j}">${o}</button>`
-  ).join('')
-).join('');
-
-document.querySelectorAll('#quiz .opt').forEach(b => {
-  b.onclick = () => {
-    const i = Number(b.dataset.q);
-    const j = Number(b.dataset.j);
-    const g = [...document.querySelectorAll(`#quiz .opt[data-q="${i}"]`)];
-
-    if (g.some(x => x.disabled)) return;
-    g.forEach(x => x.disabled = true);
-
-    const ok = j === Q[i][2];
-
-    quizAnswers[i] = {
-      pertanyaan: Q[i][0],
-      jawaban: Q[i][1][j],
-      kunciJawaban: Q[i][1][Q[i][2]],
-      benar: ok ? "Benar" : "Salah"
-    };
-
-    b.classList.add(ok ? 'right' : 'wrong');
-    if (!ok) g[Q[i][2]].classList.add('right');
-
-    if (ok) {
-      sk++;
-      burst(b);
-    }
-
-    jw++;
-
-    if (jw === Q.length) {
-      $('#skor').textContent =
-        `Skormu ${sk} dari ${Q.length} ${sk === Q.length ? '🏆 Hebat!' : '👍 Ayo belajar lagi!'}`;
-      $('#kirimI').disabled = false;
-    }
-  };
+let sk=0,jw=0;
+$('#quiz').innerHTML=Q.map((q,i)=>`<p style="margin:10px 0 2px"><b>${i+1}. ${q[0]}</b></p>`+q[1].map((o,j)=>`<button class="opt" data-q="${i}" data-j="${j}">${o}</button>`).join('')).join('');
+document.querySelectorAll('#quiz .opt').forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.q,g=[...document.querySelectorAll(`#quiz .opt[data-q="${i}"]`)];
+  if(g.some(x=>x.disabled))return;
+  g.forEach(x=>x.disabled=true);
+  const ok=+b.dataset.j===Q[i][2];
+  b.classList.add(ok?'right':'wrong');if(!ok)g[Q[i][2]].classList.add('right');if(ok)burst(b);
+  if(ok)sk++;jw++;
+  if(jw===Q.length)$('#skor').textContent=`Skormu ${sk} dari ${Q.length} ${sk===Q.length?'🏆 Hebat!':'👍 Ayo coba lagi!'}`;
 });
-
-$('#kirimI').disabled = true;
-
-$('#kirimI').onclick = async () => {
-  if (jw !== Q.length) {
-    $('#statusI').textContent =
-      'Jawab semua pertanyaan terlebih dahulu, ya!';
-    return;
-  }
-
-  const nama = sessionStorage.getItem('namaMurid');
-  const kelas = sessionStorage.getItem('kelasMurid');
-  const tombol = $('#kirimI');
-
-  tombol.disabled = true;
-  tombol.textContent = 'Mengirim...';
-
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type': 'text/plain;charset=utf-8'},
-      body: JSON.stringify({
-        bagian: 'I',
-        nama: nama,
-        kelas: kelas,
-        jawabanKuis: quizAnswers,
-        skor: sk,
-        totalSoal: Q.length
-      })
-    });
-
-    $('#statusI').textContent =
-      'Permintaan pengiriman hasil kuis sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
-    tombol.textContent = 'Hasil Kuis Terkirim';
-
-  } catch (error) {
-    $('#statusI').textContent =
-      'Pengiriman gagal. Periksa koneksi internet dan coba lagi.';
-    tombol.disabled = false;
-    tombol.textContent = 'Kirim Hasil Kuis';
-  }
-};
 const names=['Gunung','Dataran tinggi','Dataran rendah','Pantai','Sungai','Danau'];
 const M=[['🌋','Menjulang tinggi, ada yang punya kawah','Gunung'],['🍵','Datar, sejuk, ada kebun teh','Dataran tinggi'],['🌾','Datar, rendah, ada sawah luas','Dataran rendah'],['🏖️','Daratan berpasir di tepi laut','Pantai'],['🏞️','Air tawar mengalir ke hilir','Sungai'],['🛶','Air tawar menggenang luas','Danau']];
 $('#match').innerHTML=M.map((m,i)=>`<div style="display:flex;gap:12px;align-items:center;margin:8px 0"><div style="font-size:2.2rem;width:52px;text-align:center">${m[0]}</div><div style="flex:1"><div>${m[1]}</div><select id="m${i}" aria-label="Nama untuk: ${m[1]}"><option value="">Pilih nama…</option>${names.map(n=>`<option>${n}</option>`).join('')}</select></div></div>`).join('');
@@ -731,57 +317,6 @@ $('#cekMatch').onclick=()=>{let b=0;M.forEach((m,i)=>{const e=$('#m'+i),ok=e.val
 const FR=[['🚗🏡','Raka dan Sari pergi ke rumah nenek.'],['🌾🌾','Mereka melihat sawah yang luas.'],['🏞️🚗','Mobil menyeberangi sungai.'],['⛰️☁️','Jalan berkelok naik ke arah gunung berkabut.'],['🌋🛶','Di dekatnya ada danau yang tenang. “Wah, banyak sekali pemandangannya!” kata Sari.']];
 let fi=0;function showF(){$('#sc').textContent=FR[fi][0];$('#st').textContent=`(${fi+1}/${FR.length}) `+FR[fi][1];$('#sprev').disabled=fi===0;$('#snext').disabled=fi===FR.length-1}
 $('#sprev').onclick=()=>{if(fi>0){fi--;showF()}};$('#snext').onclick=()=>{if(fi<FR.length-1){fi++;showF()}};showF();
-// FUNGSI KIRIM REFLEKSI
-
-$('#kirimRefleksi').onclick = async () => {
-
-  const nama = sessionStorage.getItem('namaMurid');
-  const kelas = sessionStorage.getItem('kelasMurid');
-
-  const tahu = $('#r1').value.trim();
-  const perasaan = $('#rasa').value;
-  const inginMencoba = $('#r3').value.trim();
-
-  if (!tahu || !inginMencoba) {
-    $('#statusRefleksi').textContent =
-      'Lengkapi semua isian refleksi terlebih dahulu, ya!';
-    return;
-  }
-
-  const tombol = $('#kirimRefleksi');
-  tombol.disabled = true;
-  tombol.textContent = 'Mengirim...';
-
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify({
-        bagian: 'R',
-        nama: nama,
-        kelas: kelas,
-        tahu: tahu,
-        perasaan: perasaan,
-        inginMencoba: inginMencoba
-      })
-    });
-
-    $('#statusRefleksi').textContent =
-      'Refleksi sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
-
-    tombol.textContent = 'Refleksi Terkirim';
-
-  } catch (error) {
-    $('#statusRefleksi').textContent =
-      'Pengiriman gagal. Coba periksa koneksi internet.';
-
-    tombol.disabled = false;
-    tombol.textContent = 'Kirim Refleksi';
-  }
-};
 </script>
 </body>
 </html>
