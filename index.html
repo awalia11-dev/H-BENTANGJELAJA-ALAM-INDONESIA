@@ -625,7 +625,6 @@ function kirimData(bagian,jawaban,statusId,tombolId){
 
   const status = document.getElementById(statusId);
   const tombol = document.getElementById(tombolId);
-
   const identitas = ambilIdentitas();
 
   if(!identitas) return;
@@ -640,34 +639,23 @@ function kirimData(bagian,jawaban,statusId,tombolId){
     jawaban: jawaban
   };
 
-  google.script.run
-
-    .withSuccessHandler(function(res){
-
-      if(res.status === 'success'){
-        status.textContent =
-          'Terima kasih! Jawabanmu berhasil disimpan. 😊';
-      } else {
-        status.textContent =
-          'Gagal menyimpan: ' + res.message;
-      }
-
-      tombol.disabled = false;
-
-    })
-
-    .withFailureHandler(function(error){
-
-      status.textContent =
-        'Gagal mengirim jawaban. Silakan coba lagi.';
-
-      console.error(error);
-
-      tombol.disabled = false;
-
-    })
-
-    .simpanJawaban(data);
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    status.textContent = 'Jawaban sudah dikirim. 😊';
+    tombol.disabled = false;
+  })
+  .catch(error => {
+    status.textContent = 'Pengiriman gagal. Coba lagi.';
+    console.error(error);
+    tombol.disabled = false;
+  });
 }
 // KIRIM JAWABAN BAGIAN H
 document.getElementById('kirimH').addEventListener('click',()=>{
