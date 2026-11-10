@@ -680,45 +680,45 @@ document.querySelectorAll('#quiz .opt').forEach(b => {
   };
 });
 
-$('#kirimI').disabled = true;
-
 // ====================================================================
 // 🚨 PENGATURAN UTAMA: PASTE URL GOOGLE APPS SCRIPT KAMU DI ANTARA ""
 // ====================================================================
-const APPS_SCRIPT_URL = "https://docs.google.com/spreadsheets/d/1NnqhgKZlmUk-v6e-6QzzSBBLMblaYsm1lEtJG8YMFqU/edit?usp=drivesdk";
+const APPS_SCRIPT_URL = "https://docs.google.com/spreadsheets/d/1NnqhgKZlmUk-v6e-6QzzSBBLMblaYsm1lEtJG8YMFqU/edit?usp=sharing";
 
 // KIRIM KUIS (BAGIAN I)
-$('#kirimI').onclick = async () => {
-  const nama = sessionStorage.getItem('namaMurid') || "Anonim";
-  const kelas = sessionStorage.getItem('kelasMurid') || "-";
-  const tombol = $('#kirimI');
+if($('#kirimI')) {
+  $('#kirimI').onclick = async () => {
+    const nama = sessionStorage.getItem('namaMurid') || "Anonim";
+    const kelas = sessionStorage.getItem('kelasMurid') || "-";
+    const tombol = $('#kirimI');
 
-  tombol.disabled = true;
-  tombol.textContent = 'Mengirim...';
+    tombol.disabled = true;
+    tombol.textContent = 'Mengirim...';
 
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type': 'text/plain;charset=utf-8'},
-      body: JSON.stringify({
-        bagian: 'I',
-        nama: nama,
-        kelas: kelas,
-        jawabanKuis: quizAnswers,
-        skor: sk,
-        totalSoal: Q.length
-      })
-    });
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'text/plain;charset=utf-8'},
+        body: JSON.stringify({
+          bagian: 'I',
+          nama: nama,
+          kelas: kelas,
+          jawabanKuis: quizAnswers,
+          skor: sk,
+          totalSoal: Q.length
+        })
+      });
 
-    $('#statusI').textContent = 'Hasil kuis berhasil dikirim ke spreadsheet!';
-    tombol.textContent = 'Hasil Kuis Terkirim';
-    burst(tombol);
-  } catch (error) {
-    tombol.disabled = false;
-    tombol.textContent = 'Kirim Hasil Kuis';
-  }
-};
+      $('#statusI').textContent = 'Hasil kuis berhasil dikirim ke spreadsheet!';
+      tombol.textContent = 'Hasil Kuis Terkirim';
+      burst(tombol);
+    } catch (error) {
+      tombol.disabled = false;
+      tombol.textContent = 'Kirim Hasil Kuis';
+    }
+  };
+}
 
 // KIRIM REFLEKSI (BAGIAN R)
 const semuaTombol = document.querySelectorAll('.btn');
