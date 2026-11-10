@@ -97,12 +97,104 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 @keyframes wiggle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
 @keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
 }
+/* FORM IDENTITAS MURID */
+.identity-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(30,45,60,.75);
+  display:grid;
+  place-items:center;
+  padding:20px;
+}
+
+.identity-overlay[hidden]{
+  display:none;
+}
+
+.identity-box{
+  width:100%;
+  max-width:430px;
+  background:var(--card);
+  color:var(--ink);
+  padding:26px;
+  border-radius:24px;
+  border:4px solid var(--line);
+  box-shadow:0 12px 35px rgba(0,0,0,.2);
+}
+
+.identity-box h2{
+  text-align:center;
+  color:var(--ink);
+}
+
+.identity-box p{
+  text-align:center;
+  color:var(--sub);
+}
+
+.identity-box label{
+  display:block;
+  font-weight:800;
+  margin-top:14px;
+}
+
+.identity-box input{
+  width:100%;
+  padding:12px;
+  border:3px solid var(--line);
+  border-radius:12px;
+  font:inherit;
+  background:var(--bg);
+  color:var(--ink);
+  margin-top:5px;
+}
+
+.identity-box button{
+  width:100%;
+  margin-top:20px;
+}
+
+.change-identity{
+  flex:none;
+  border:2px solid var(--line);
+  border-radius:12px;
+  padding:8px 10px;
+  background:var(--soft);
+  color:var(--ink);
+  font-weight:800;
+  cursor:pointer;
+}
 </style>
 </head>
 <body>
+
+<!-- FORM IDENTITAS MURID -->
+<div class="identity-overlay" id="identityGate">
+  <form class="identity-box" id="identityForm">
+    <h2>🌈 Selamat Datang!</h2>
+    <p>Isi identitasmu sebelum memulai petualangan Jelajah Bentang Alam Indonesia.</p>
+
+    <label for="namaMurid">Nama lengkap</label>
+    <input type="text" id="namaMurid" placeholder="Tuliskan nama lengkapmu" required>
+
+    <label for="kelasMurid">Kelas</label>
+    <input type="text" id="kelasMurid" placeholder="Contoh: III A" required>
+
+    <button type="submit" class="btn">
+      Mulai Petualangan 🚀
+    </button>
+  </form>
+</div>
+
 <header class="top">
 <img class="lg" src="logo-prodi.png" alt="Logo prodi PGSD UPI Kampus Cibiru" onerror="this.outerHTML='<div class=logo>logo prodi</div>'">
 <nav class="nav" id="nav" aria-label="Menu halaman"></nav>
+
+<button class="change-identity" id="changeIdentity">
+  Ganti Identitas
+</button>
+
 <button class="theme" id="theme" aria-label="Ganti mode terang atau gelap">🌙</button>
 </header>
 
@@ -234,7 +326,7 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <b>PGSDUPICIBIRU2026 #dHeTik</b><br>
 Program Studi PGSD, Universitas Pendidikan Indonesia Kampus Cibiru<br>
 Desain Sistem Pembelajaran Digital · Dosen: Dr. Dede Trie Kurniawan, S.Si., M.Pd.<br>
-Pengembang: [nama anggota kelompok]<br>Sumber gambar: [lengkapi]
+Pengembang: Awalia Safitri; Gayasal Agisni Putri; Risa Aulia Hermyanti; Riska Setiawati
 </div></footer>
 
 <script>
@@ -316,7 +408,54 @@ $('#match').innerHTML=M.map((m,i)=>`<div style="display:flex;gap:12px;align-item
 $('#cekMatch').onclick=()=>{let b=0;M.forEach((m,i)=>{const e=$('#m'+i),ok=e.value===m[2];if(ok)b++;e.style.borderColor=e.value?(ok?'#2f9e5b':'#e8643a'):''});$('#hasilMatch').textContent=b===6?'Hebat! Semua benar 🎉':`Benar ${b} dari 6. Coba perbaiki yang berwarna merah.`;if(b===6)burst($('#cekMatch'))};
 const FR=[['🚗🏡','Raka dan Sari pergi ke rumah nenek.'],['🌾🌾','Mereka melihat sawah yang luas.'],['🏞️🚗','Mobil menyeberangi sungai.'],['⛰️☁️','Jalan berkelok naik ke arah gunung berkabut.'],['🌋🛶','Di dekatnya ada danau yang tenang. “Wah, banyak sekali pemandangannya!” kata Sari.']];
 let fi=0;function showF(){$('#sc').textContent=FR[fi][0];$('#st').textContent=`(${fi+1}/${FR.length}) `+FR[fi][1];$('#sprev').disabled=fi===0;$('#snext').disabled=fi===FR.length-1}
-$('#sprev').onclick=()=>{if(fi>0){fi--;showF()}};$('#snext').onclick=()=>{if(fi<FR.length-1){fi++;showF()}};showF();
+$('#sprev').onclick=()=>{if(fi>0){fi--;showF()}};
+$('#snext').onclick=()=>{if(fi<FR.length-1){fi++;showF()}};
+showF();
+
+// IDENTITAS MURID
+const identityGate = $('#identityGate');
+const identityForm = $('#identityForm');
+
+function tampilkanIdentitas(){
+  identityGate.hidden = false;
+}
+
+function sembunyikanIdentitas(){
+  identityGate.hidden = true;
+}
+
+identityForm.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const nama = $('#namaMurid').value.trim();
+  const kelas = $('#kelasMurid').value.trim();
+
+  if(!nama || !kelas){
+    alert('Nama dan kelas harus diisi terlebih dahulu.');
+    return;
+  }
+
+  const identitas = {
+    nama: nama,
+    kelas: kelas
+  };
+
+  sessionStorage.setItem('identitasMurid', JSON.stringify(identitas));
+  sembunyikanIdentitas();
+});
+
+$('#changeIdentity').addEventListener('click', function(){
+  sessionStorage.removeItem('identitasMurid');
+  identityForm.reset();
+  tampilkanIdentitas();
+});
+
+if(sessionStorage.getItem('identitasMurid')){
+  sembunyikanIdentitas();
+}else{
+  tampilkanIdentitas();
+}
+
 </script>
 </body>
 </html>
