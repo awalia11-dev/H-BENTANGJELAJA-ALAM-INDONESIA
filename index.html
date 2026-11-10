@@ -642,7 +642,7 @@ let quizAnswers = [];
 $('#quiz').innerHTML = Q.map((q,i) =>
   `<p style="margin:10px 0 2px"><b>${i+1}. ${q[0]}</b></p>` +
   q[1].map((o,j) =>
-    `<button class="opt" data-q="${i}" data-j="${j}">${o}</button>`
+    `<button class="opt quiz-btn" data-q="${i}" data-j="${j}">${o}</button>`
   ).join('')
 ).join('');
 
@@ -660,7 +660,6 @@ document.querySelectorAll('#quiz .opt').forEach(b => {
     quizAnswers[i] = {
       pertanyaan: Q[i][0],
       jawaban: Q[i][1][j],
-      kunciJawaban: Q[i][1][Q[i][2]],
       benar: ok ? "Benar" : "Salah"
     };
 
@@ -675,8 +674,7 @@ document.querySelectorAll('#quiz .opt').forEach(b => {
     jw++;
 
     if (jw === Q.length) {
-      $('#skor').textContent =
-        `Skormu ${sk} dari ${Q.length} ${sk === Q.length ? '🏆 Hebat!' : '👍 Ayo belajar lagi!'}`;
+      $('#skor').textContent = `Skormu ${sk} dari ${Q.length} ${sk === Q.length ? '🏆 Hebat!' : '👍 Ayo belajar lagi!'}`;
       $('#kirimI').disabled = false;
     }
   };
@@ -684,15 +682,15 @@ document.querySelectorAll('#quiz .opt').forEach(b => {
 
 $('#kirimI').disabled = true;
 
-$('#kirimI').onclick = async () => {
-  if (jw !== Q.length) {
-    $('#statusI').textContent =
-      'Jawab semua pertanyaan terlebih dahulu, ya!';
-    return;
-  }
+// ====================================================================
+// 🚨 PENGATURAN UTAMA: PASTE URL GOOGLE APPS SCRIPT KAMU DI ANTARA ""
+// ====================================================================
+const APPS_SCRIPT_URL = "ISI_URL_WEB_APP_KAMU_DI_SINI";
 
-  const nama = sessionStorage.getItem('namaMurid');
-  const kelas = sessionStorage.getItem('kelasMurid');
+// KIRIM KUIS (BAGIAN I)
+$('#kirimI').onclick = async () => {
+  const nama = sessionStorage.getItem('namaMurid') || "Anonim";
+  const kelas = sessionStorage.getItem('kelasMurid') || "-";
   const tombol = $('#kirimI');
 
   tombol.disabled = true;
@@ -713,75 +711,62 @@ $('#kirimI').onclick = async () => {
       })
     });
 
-    $('#statusI').textContent =
-      'Permintaan pengiriman hasil kuis sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
+    $('#statusI').textContent = 'Hasil kuis berhasil dikirim ke spreadsheet!';
     tombol.textContent = 'Hasil Kuis Terkirim';
-
+    burst(tombol);
   } catch (error) {
-    $('#statusI').textContent =
-      'Pengiriman gagal. Periksa koneksi internet dan coba lagi.';
     tombol.disabled = false;
     tombol.textContent = 'Kirim Hasil Kuis';
   }
 };
-const names=['Gunung','Dataran tinggi','Dataran rendah','Pantai','Sungai','Danau'];
-const M=[['🌋','Menjulang tinggi, ada yang punya kawah','Gunung'],['🍵','Datar, sejuk, ada kebun teh','Dataran tinggi'],['🌾','Datar, rendah, ada sawah luas','Dataran rendah'],['🏖️','Daratan berpasir di tepi laut','Pantai'],['🏞️','Air tawar mengalir ke hilir','Sungai'],['🛶','Air tawar menggenang luas','Danau']];
-$('#match').innerHTML=M.map((m,i)=>`<div style="display:flex;gap:12px;align-items:center;margin:8px 0"><div style="font-size:2.2rem;width:52px;text-align:center">${m[0]}</div><div style="flex:1"><div>${m[1]}</div><select id="m${i}" aria-label="Nama untuk: ${m[1]}"><option value="">Pilih nama…</option>${names.map(n=>`<option>${n}</option>`).join('')}</select></div></div>`).join('');
-$('#cekMatch').onclick=()=>{let b=0;M.forEach((m,i)=>{const e=$('#m'+i),ok=e.value===m[2];if(ok)b++;e.style.borderColor=e.value?(ok?'#2f9e5b':'#e8643a'):''});$('#hasilMatch').textContent=b===6?'Hebat! Semua benar 🎉':`Benar ${b} dari 6. Coba perbaiki yang berwarna merah.`;if(b===6)burst($('#cekMatch'))};
-const FR=[['🚗🏡','Raka dan Sari pergi ke rumah nenek.'],['🌾🌾','Mereka melihat sawah yang luas.'],['🏞️🚗','Mobil menyeberangi sungai.'],['⛰️☁️','Jalan berkelok naik ke arah gunung berkabut.'],['🌋🛶','Di dekatnya ada danau yang tenang. “Wah, banyak sekali pemandangannya!” kata Sari.']];
-let fi=0;function showF(){$('#sc').textContent=FR[fi][0];$('#st').textContent=`(${fi+1}/${FR.length}) `+FR[fi][1];$('#sprev').disabled=fi===0;$('#snext').disabled=fi===FR.length-1}
-$('#sprev').onclick=()=>{if(fi>0){fi--;showF()}};$('#snext').onclick=()=>{if(fi<FR.length-1){fi++;showF()}};showF();
-// FUNGSI KIRIM REFLEKSI
 
-$('#kirimRefleksi').onclick = async () => {
+// KIRIM REFLEKSI (BAGIAN R)
+const semuaTombol = document.querySelectorAll('.btn');
+semuaTombol.forEach(btn => {
+  if (btn.textContent.includes('Kirim Refleksi')) {
+    btn.onclick = async () => {
+      const nama = sessionStorage.getItem('namaMurid') || "Anonim";
+      const kelas = sessionStorage.getItem('kelasMurid') || "-";
+      
+      const semuaTextarea = document.querySelectorAll('textarea');
+      let textTahu = "";
+      let textIngin = "";
+      
+      if (semuaTextarea.length >= 2) {
+        textTahu = semuaTextarea[semuaTextarea.length - 2].value;
+        textIngin = semuaTextarea[semuaTextarea.length - 1].value;
+      }
+      
+      const emosiTerpilih = document.querySelector('.land[aria-pressed="true"]') || document.querySelector('[aria-pressed="true"]');
+      const textPerasaan = emosiTerpilih ? emosiTerpilih.textContent : "Senang";
 
-  const nama = sessionStorage.getItem('namaMurid');
-  const kelas = sessionStorage.getItem('kelasMurid');
+      btn.disabled = true;
+      btn.textContent = 'Menyimpan...';
 
-  const tahu = $('#r1').value.trim();
-  const perasaan = $('#rasa').value;
-  const inginMencoba = $('#r3').value.trim();
-
-  if (!tahu || !inginMencoba) {
-    $('#statusRefleksi').textContent =
-      'Lengkapi semua isian refleksi terlebih dahulu, ya!';
-    return;
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {'Content-Type': 'text/plain;charset=utf-8'},
+          body: JSON.stringify({
+            bagian: 'R',
+            nama: nama,
+            kelas: kelas,
+            tahu: textTahu,
+            perasaan: textPerasaan,
+            inginMencoba: textIngin
+          })
+        });
+        
+        btn.textContent = 'Refleksi Tersimpan!';
+        burst(btn);
+      } catch (e) {
+        btn.disabled = false;
+        btn.textContent = 'Kirim Refleksi';
+      }
+    };
   }
-
-  const tombol = $('#kirimRefleksi');
-  tombol.disabled = true;
-  tombol.textContent = 'Mengirim...';
-
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify({
-        bagian: 'R',
-        nama: nama,
-        kelas: kelas,
-        tahu: tahu,
-        perasaan: perasaan,
-        inginMencoba: inginMencoba
-      })
-    });
-
-    $('#statusRefleksi').textContent =
-      'Refleksi sudah dikirim. Silakan minta guru memeriksa spreadsheet.';
-
-    tombol.textContent = 'Refleksi Terkirim';
-
-  } catch (error) {
-    $('#statusRefleksi').textContent =
-      'Pengiriman gagal. Coba periksa koneksi internet.';
-
-    tombol.disabled = false;
-    tombol.textContent = 'Kirim Refleksi';
-  }
-};
+});
 </script>
 </body>
 </html>
